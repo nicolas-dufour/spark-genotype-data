@@ -1,0 +1,183 @@
+
+API Spécification:
+### Set an plantdb index and a nucleotidedb index with db description and name and retrieve it
+GET	api.url/brapi/v1/plantdbindex
+GET	api.url/brapi/v1/nucleotidedbindex
+### Retrieve Plant genom
+POST api.url/brapi/v1/plantGenomeQuery
+RequestObject:
+{	
+	"QueryType":"plants"
+	"dbId":"10",
+	"plantsRetrieve":["plantA","plantB"], //["ALL"] fo all
+	"nucleotideFiltering":["nuclA","nuclB"], //["ALL"] fo all
+	"plantCondition":["PlantC='A'"] //['NONE'] for not filer
+}
+Response 200
+{
+	"metadata":{
+		"datafiles":[],
+		"pagination":{
+			"currentPage":0,
+			"pageSize":x,
+			"totalCount":2,
+			"totalPages":1
+		},
+		"status":[]
+	},
+	"result":{
+		"dataType":"Plant Genome",
+		"data":[
+			{
+				"plant":"plantX",
+				"nucleotideA":"A",
+				"nucleotideB":"B",
+				"nucleotideC":"C"
+			},
+			{
+				"plant":"plantY",
+				"nucleotideA":"A",
+				"nucleotideB":"B",
+				"nucleotideC":"C"
+			}
+		],
+		"plantDbId":123,
+		"uniqueDisplayName":"Chromosome 11 Soleneacae"
+	}
+}
+
+### Retrieve nucleotide
+POST api.url/brapi/v1/nucleotideDataQuery
+RequestObject:
+{	
+	"QueryType":"nucleotides"
+	"dbId":"10",
+	"nucleotidesRetrieve":["nucleotideA","nucleotideB"], //["ALL"] fo all
+	"plantFiltering":["plantA","plantB"], //["ALL"] fo all
+	"nucleotideCondition":["NucleotideC='A'"] //['NONE'] for not filer
+}
+Response 200
+{
+	"metadata":{
+		"datafiles":[],
+		"pagination":{
+			"currentPage":0,
+			"pageSize":x,
+			"totalCount":2,
+			"totalPages":1
+		},
+		"status":[]
+	},
+	"result":{
+		"dataType":"Nucleotide Data",
+		"data":[
+			{
+				"nucleotide":"nucleotideX",
+				"plantA":"A",
+				"plantB":"B",
+				"plantC":"C"
+			},
+			{
+				"nucleotide":"nucleotideY",
+				"plantA":"A",
+				"plantB":"B",
+				"plantC":"C"
+			}
+		],
+		"plantDbId":123,
+		"uniqueDisplayName":"Chromosome 11 Soleneacae"
+	}
+}
+
+
+### Add db: API to add db to our spark server.
+POST api.url/brapi/v1/addplantdb
+Request Object
+{
+	"dataType":"Plant Genome",
+	"index":["plant","nucleotideA","nucleotideB","nucleotideC"]
+	"data":[
+		{
+			"plant":"plantX",
+			"nucleotideA":"A",
+			"nucleotideB":"B",
+			"nucleotideC":"C"
+		},
+		{
+			"plant":"plantY",
+			"nucleotideA":"A",
+			"nucleotideB":"B",
+			"nucleotideC":"C"
+		}
+	],
+	"uniqueDisplayName":"Chromosome 11 Soleneacae",
+	"description": "This db is there to do that",
+}
+Response 200:
+{
+	"success":true,
+	"message":"db Successfully Added"
+}
+
+POST api.url//brapi/v1/addnucleotidedb
+	{
+	"dataType":"Nucleotide data",
+	"index":["nucleotide","plantA","plantB","plantC"]
+	"data":[
+				{
+					"nucleotide":"nucleotideX",
+					"plantA":"A",
+					"plantB":"B",
+					"plantC":"C"
+				},
+				{
+					"nucleotide":"nucleotideY",
+					"plantA":"A",
+					"plantB":"B",
+					"plantC":"C"
+				}
+			],
+	"uniqueDisplayName":"Chromosome 11 Soleneacae",
+	"description": "This db is there to do that",
+}
+Response 200:
+{
+	"success":true,
+	"message":"db Successfully Added"
+}
+
+## Statistics on nucleotides:
+GET api.url/brapi/v1/statnucleotides/dbname/:dbname/nucleotide/:nucleotideX
+
+Response 200
+{
+	"metadata":{
+		"datafiles":[],
+		"pagination":{
+			"currentPage":0,
+			"pageSize":0,
+			"totalCount":0,
+			"totalPages":0
+		},
+		"status":[]
+	},
+	"result":{
+		"dataType":"Nucleotide Statistics",
+		"data":[
+			{
+				"nucleotide":"nucleotideX",
+				"index":["A","G","C"],
+				"A":0.69,
+				"G":0.18,
+				"C":0.13
+			}
+		],
+		"plantDbId":123,
+		"uniqueDisplayName":"Chromosome 11 Soleneacae"
+	}
+}
+Bibliography for the API:
+Example of SPARK API:https://www.codementor.io/jadianes/building-a-web-service-with-apache-spark-flask-example-app-part2-du1083854
+Building an API in Python with Flask:https://www.youtube.com/watch?v=s_ht4AKnWZg
+BrAPI Syntax: https://wiki.brapi.org/index.php/BrAPI_Objects#The_Result
+Server deploy: https://www.youtube.com/watch?v=kDRRtPO0YPA
