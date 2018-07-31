@@ -4,14 +4,14 @@ API Spécification:
 GET	api.url/brapi/v1/plantdbindex
 GET	api.url/brapi/v1/nucleotidedbindex
 ### Retrieve Plant genom
-POST api.url/brapi/v1/plantGenomeQuery
+POST api.url/brapi/v1/plantgenomequery
 RequestObject:
 {	
 	"QueryType":"plants"
 	"dbId":"10",
-	"plantsRetrieve":["plantA","plantB"], //["ALL"] fo all
+	"samplsRetrieve":["plantA","plantB"], //["ALL"] fo all
 	"nucleotideFiltering":["nuclA","nuclB"], //["ALL"] fo all
-	"plantCondition":["PlantC='A'"] //['NONE'] for not filer
+	"plantCondition":["PlantC='A'"] //["NONE"] for no conditioning (Maybe useless to conditioning by plants??)
 }
 Response 200
 {
@@ -53,8 +53,8 @@ RequestObject:
 	"QueryType":"nucleotides"
 	"dbId":"10",
 	"nucleotidesRetrieve":["nucleotideA","nucleotideB"], //["ALL"] fo all
-	"plantFiltering":["plantA","plantB"], //["ALL"] fo all
-	"nucleotideCondition":["NucleotideC='A'"] //['NONE'] for not filer
+	"plantFilter":["plantA","plantB"], //["ALL"] fo all
+	"nucleotideCondition":["NucleotideC='A'"] //["NONE"] for no conditioning
 }
 Response 200
 {
