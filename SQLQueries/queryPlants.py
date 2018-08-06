@@ -71,5 +71,5 @@ def dbQuery(dbPath,plant,nucleotide,condition):
 if __name__ == '__main__':
 	start=time.time()
 	dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
-	df=spark.createDataframe("The programm took "+str(time.time()-start)+" secondes to run")
+	df=spark.createDataFrame("The programm took "+str(time.time()-start)+" secondes to run")
 	df.write.text("logs/plantlogs.txt")
