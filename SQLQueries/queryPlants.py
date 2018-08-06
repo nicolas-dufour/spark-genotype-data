@@ -11,7 +11,7 @@ spark = SparkSession.builder.getOrCreate()
 
 ### Don't forget to escape the characters when entering them
 
-def listEntries(plant,nucleotides,condition):
+def listEntries(plant,nucleotide,condition):
 	if('.txt' in nucleotide):
 		with open(nucleotide, 'rb') as f:
 		    reader = csv.reader(f)
