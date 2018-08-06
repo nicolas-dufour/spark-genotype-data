@@ -44,8 +44,8 @@ def prepareQuery(nucleotides,plants,conditions): # SELECT nucleotides FROM file 
 	if(nucleotides!=['ALL']):
 		wherestring=""
 		for i in range(len(nucleotides)-1):
-			wherestring+="plant='"+str(nucleotides[i])+ "' or "
-		wherestring+="plant='"+str(nucleotides[-1])+"'"
+			wherestring+="pos='"+str(nucleotides[i])+ "' or "
+		wherestring+="pos='"+str(nucleotides[-1])+"'"
 		if(conditions!=['NONE']):
 			for i in range(len(conditions)):
 				wherestring+=" AND "+str(conditions[i])
