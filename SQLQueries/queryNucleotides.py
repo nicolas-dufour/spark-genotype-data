@@ -2,6 +2,7 @@ import sys
 from pyspark import SparkContext
 from pyspark.sql import SQLContext
 from pyspark.sql import SparkSession
+import time
 import csv
 
 sc=SparkContext()
@@ -68,5 +69,6 @@ def dbQuery(dbPath,nucleotide,plant,condition):
 	spark.sql(query).show()
 
 if __name__ == '__main__':
+	start=time.time()
 	dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
-
+	print("The programm took "+str(time.time()-start)+" secondes to run")
