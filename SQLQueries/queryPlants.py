@@ -34,7 +34,7 @@ def listEntries(plant,nucleotide,condition):
 	else:
 		conditions=[condition]
 	return(plants,nucleotides,conditions)
-def prepareQuery(nucleotides,plants,conditions): # SELECT nucleotides FROM file WHERE plant=plant1 OR plant=plant2 etc... AND condition1 AND condition2
+def prepareQuery(plants,nucleotides,conditions): # SELECT nucleotides FROM file WHERE plant=plant1 OR plant=plant2 etc... AND condition1 AND condition2
 	if(plants!=['ALL']):
 		selectstring="pos"
 		for i in range(len(plants)):
