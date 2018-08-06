@@ -8,6 +8,7 @@ import csv
 sc=SparkContext()
 sqlContext=SQLContext(sc);
 spark = SparkSession.builder.getOrCreate()
+#nb de colones 5843855
 
 ### Don't forget to escape the characters when entering them
 

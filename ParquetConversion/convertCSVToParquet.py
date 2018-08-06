@@ -12,6 +12,7 @@ def formatFile(path): #Allow us to convert it to parquet. Parquet doesn't handle
 	s.close()
 def convertToParquet(pathin,pathout):
 	if(pathin.split('.')[-1]=='csv'):
+		formatFile(pathin)
 		df=sqlContext.read.csv(pathin,header='true')
 		df.withColumnRenamed('pos','plant')
 	else:
