@@ -66,7 +66,7 @@ def dbQuery(dbPath,plant,nucleotide,condition):
 	plants,nucleotides,conditions=listEntries(plant,nucleotide,condition)
 	query=prepareQuery(plants,nucleotides,conditions)
 	print("Query: "+query)
-	spark.sql(query).show()
+	spark.sql(query).collect()
 
 if __name__ == '__main__':
 	start=time.time()
