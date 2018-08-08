@@ -28,7 +28,7 @@ def retrieveNucleotideQuery():
 	# jsondata+=data[0][-1]+": "+data[-1][-1]+"}]"
 	# returnstring='{"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":'+jsondata+',"DbId":'+dbId+'}}'
 	# return (returnstring)
-	return str(data)
+	return data
 
 def run_server(app):
 
