@@ -11,8 +11,9 @@ def main():
 def retrieveNucleotideQuery():
 	requestJson=request.get_json()
 	dbId=requestJson['dbId']
-	with open('indexDb.json') as f:
-		index=json.load(f)
+	print(dbId)
+	with open('./indexDb.json') as f:
+		index=json.loads(f)
 		print(index)
 		dbPath=index[dbId]
 	nucleotides=requestJson['nucleotidesRetrieve']
