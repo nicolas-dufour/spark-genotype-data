@@ -62,7 +62,7 @@ def prepareQuery(nucleotides,plants,conditions): # SELECT nucleotides FROM file 
 			return("SELECT "+selectstring+" FROM db")
 
 def dbQuery(dbPath,nucleotide,plant,condition):
-	df=sqlContext.read.csv(dbPath,header="true")
+	df=sqlContext.read.format('csv').options(header='true', inferSchema='true').load(dbPath)
 	df.createTempView('db')
 	nucleotides,plants,conditions=listEntries(nucleotide,plant,condition)
 	query=prepareQuery(nucleotides,plants,conditions)
