@@ -1,8 +1,4 @@
 
-API Spécification:
-### Set an plantdb index and a nucleotidedb index with db description and name and retrieve it
-GET	api.url/brapi/v1/plantdbindex
-GET	api.url/brapi/v1/nucleotidedbindex
 ### Retrieve Plant genom
 POST api.url/brapi/v1/plantgenomequery
 RequestObject:

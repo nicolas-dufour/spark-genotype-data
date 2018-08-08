@@ -1,5 +1,5 @@
 ###----- Estimated runtime on personal laptop: 20min per giga. o(n) algorithm. What's limitating is the access time to data
-
+### script to transpose a big matrix only using I/O don't use any RAM
 import csv
 import sys
 import time
@@ -7,7 +7,7 @@ time1=time.time()
 #One file for read and create a new file for write
 readFile=open(sys.argv[1])
 writeFile=open(sys.argv[1].replace('.csv','transpose.csv'),"w+")
-#determine the dimension of our matrix
+#Determine the dimension of our matrix
 with open(sys.argv[1]) as f:
     reader = csv.reader(f, delimiter=',')
     first_row = next(reader)
@@ -22,7 +22,7 @@ with open(sys.argv[1]) as f:
 print("Length calculated")
 #We keep an offset eachtime we iterate depending of the amount of data we took
 readOffset=[0 for i in range(num_lines)]
-#Function that determine how much characters our data take 
+#Function that determine how much characters our data take
 def determineChunk(i):
 	readFile.seek(CumulineLength[i]+readOffset[i])
 	chunk=1
