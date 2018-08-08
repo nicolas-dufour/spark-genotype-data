@@ -10,7 +10,7 @@ def main():
 @app.route('/v1/brapi/nucleotidedataquery',methods=['POST'])
 def retrieveNucleotideQuery():
 	requestJson=request.get_json()
-	dbId=requestJson.dbId
+	dbId=requestJson['dbId']
 	with open('indexDb.json') as index:
 		dbPath=index[dbId]
 	nucleotides=requestJson['nucleotidesRetrieve']
