@@ -8,7 +8,6 @@ import csv
 sc=SparkContext()
 sqlContext=SQLContext(sc);
 spark = SparkSession.builder.getOrCreate()
-#nb de colones 5843855
 
 ### Don't forget to escape the characters when entering them
 
@@ -67,9 +66,9 @@ def dbQuery(dbPath,nucleotide,plant,condition):
 	nucleotides,plants,conditions=listEntries(nucleotide,plant,condition)
 	query=prepareQuery(nucleotides,plants,conditions)
 	print("Query: "+query)
-	spark.sql(query).show()
+	return spark.sql(query).collect()
 
 if __name__ == '__main__':
 	start=time.time()
-	dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
+	print(dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]))
 	print("The programm took "+str(time.time()-start)+" secondes to run")

@@ -6,7 +6,7 @@ GET	api.url/brapi/v1/nucleotidedbindex
 ### Retrieve Plant genom
 POST api.url/brapi/v1/plantgenomequery
 RequestObject:
-{	
+{
 	"QueryType":"plants"
 	"dbId":"10",
 	"samplsRetrieve":["plantA","plantB"], //["ALL"] fo all
@@ -19,8 +19,8 @@ Response 200
 		"datafiles":[],
 		"pagination":{
 			"currentPage":0,
-			"pageSize":x,
-			"totalCount":2,
+			"pageSize":1,
+			"totalCount":1,
 			"totalPages":1
 		},
 		"status":[]
@@ -49,7 +49,7 @@ Response 200
 ### Retrieve nucleotide
 POST api.url/brapi/v1/nucleotideDataQuery
 RequestObject:
-{	
+{
 	"QueryType":"nucleotides"
 	"dbId":"10",
 	"nucleotidesRetrieve":["nucleotideA","nucleotideB"], //["ALL"] fo all
@@ -85,7 +85,6 @@ Response 200
 			}
 		],
 		"plantDbId":123,
-		"uniqueDisplayName":"Chromosome 11 Soleneacae"
 	}
 }
 
