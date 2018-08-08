@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,jsonify
 import json, cherrypy
 from SQLQueries.queryNucleotides import dbQuery
 from paste.translogger import TransLogger
@@ -17,18 +17,8 @@ def retrieveNucleotideQuery():
 	plantFilter=requestJson['plantFilter']
 	nucleotideCondition=requestJson['nucleotideCondition']
 	data=dbQuery(dbPath,nucleotides,plantFilter,nucleotideCondition)
-	# jsondata='['
-	# for i in range(1,len(data)):
-	# 	jsondata+='{'
-	# 	for j in range(len(data[1])-1):
-	# 		jsondata+=data[0][j]+": "+data[i][j]+","
-	# 	jsondata+=data[0][-1]+": "+data[i][-1]+"},"
-	# for j in range(len(data[1])-1):
-	# 	jsondata+=data[0][j]+": "+data[-1][j]+","
-	# jsondata+=data[0][-1]+": "+data[-1][-1]+"}]"
-	# returnstring='{"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":'+jsondata+',"DbId":'+dbId+'}}'
-	# return (returnstring)
-	return str(data)
+	returnjson={"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":data,"DbId":dbId}}
+	return (jsonify(returnjson))
 
 def run_server(app):
 
