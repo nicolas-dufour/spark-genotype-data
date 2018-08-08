@@ -1,6 +1,7 @@
 from flask import Flask,jsonify,request
 import json, cherrypy
 from SQLQueries.queryNucleotides import dbQuery
+from paste.translogger import TransLogger
 
 app = Flask(__name__)
 @app.route('/')
