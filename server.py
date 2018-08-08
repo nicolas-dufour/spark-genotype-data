@@ -12,7 +12,7 @@ def retrieveNucleotideQuery():
 	dbId=requestJson.dbId
 	with open('indexDb.json') as index:
 		dbPath=index[dbId]
-    nucleotides=requestJson['nucleotidesRetrieve']
+	nucleotides=requestJson['nucleotidesRetrieve']
 	plantFilter=requestJson['plantFilter']
 	nucleotideCondition=requestJson['nucleotideCondition']
 	data=dbQuery(dbPath,nucleotides,plantFilter,nucleotideCondition)
@@ -30,24 +30,24 @@ def retrieveNucleotideQuery():
 
 def run_server(app):
 
-    # Enable WSGI access logging via Paste
-    app_logged = TransLogger(app)
+	# Enable WSGI access logging via Paste
+	app_logged = TransLogger(app)
 
-    # Mount the WSGI callable object (app) on the root directory
-    cherrypy.tree.graft(app_logged, '/')
+	# Mount the WSGI callable object (app) on the root directory
+	cherrypy.tree.graft(app_logged, '/')
 
-    # Set the configuration of the web server
-    cherrypy.config.update({
-        'engine.autoreload.on': True,
-        'log.screen': True,
-        'server.socket_port': 8080,
-        'server.socket_host': '0.0.0.0'
-    })
+	# Set the configuration of the web server
+	cherrypy.config.update({
+		'engine.autoreload.on': True,
+		'log.screen': True,
+		'server.socket_port': 8080,
+		'server.socket_host': '0.0.0.0'
+	})
 
-    # Start the CherryPy WSGI web server
-    cherrypy.engine.start()
-    cherrypy.engine.block()
+	# Start the CherryPy WSGI web server
+	cherrypy.engine.start()
+	cherrypy.engine.block()
 
 
 if __name__ == "__main__":
-    run_server(app)
+	run_server(app)
