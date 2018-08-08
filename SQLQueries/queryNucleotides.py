@@ -18,7 +18,7 @@ def listEntries(nucleotide,plant,condition):
 		    nucleotides = list(reader)
 		    nucleotides=[y for x in nucleotides for y in x]
 	else:
-		nucleotides=[nucleotide]
+		nucleotides=nucleotide
 	if('.txt' in plant):
 		with open(plant, 'rb') as f:
 		    reader = csv.reader(f)
