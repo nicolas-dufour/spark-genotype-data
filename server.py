@@ -3,10 +3,10 @@ import json, CherryPy
 from SQLQueries.queryNucleotides import dbQuery
 
 app = Flask(__name__)
-@app.route('/' methods=['GET'])
+@app.route('/')
 def main():
 	return('Hello World')
-@app.route('/v1/brapi/nucleotidedataquery' methods=['POST'])
+@app.route('/v1/brapi/nucleotidedataquery',methods=['POST'])
 def retrieveNucleotideQuery():
 	requestJson=request.get_json()
 	dbId=requestJson.dbId
