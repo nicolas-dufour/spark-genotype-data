@@ -16,9 +16,9 @@ def retrieveNucleotideQuery():
 	nucleotides=requestJson['nucleotidesRetrieve']
 	plantFilter=requestJson['plantFilter']
 	nucleotideCondition=requestJson['nucleotideCondition']
-	data=map(lambda x:json.loads(x),dbQuery(dbPath,nucleotides,plantFilter,nucleotideCondition)
-	#returnjson={"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":data,"DbId":dbId}}
-	return (data)
+	data=map(lambda x:json.loads(x),dbQuery(dbPath,nucleotides,plantFilter,nucleotideCondition))
+	returnjson={"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":data,"DbId":dbId}}
+	return (jsonify(returnjson))
 
 def run_server(app):
 
