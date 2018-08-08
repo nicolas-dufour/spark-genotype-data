@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request
+from flask import Flask,request
 import json, cherrypy
 from SQLQueries.queryNucleotides import dbQuery
 from paste.translogger import TransLogger
@@ -27,7 +27,7 @@ def retrieveNucleotideQuery():
 		jsondata+=data[0][j]+": "+data[-1][j]+","
 	jsondata+=data[0][-1]+": "+data[-1][-1]+"}]"
 	returnstring='{"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":x,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":'+jsondata+',"DbId":'+dbId+'}}'
-	return jsonify(returnstring)
+	return json.loads(returnstring)
 
 def run_server(app):
 
