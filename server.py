@@ -10,7 +10,7 @@ def main():
 def retrieveNucleotideQuery():
 	requestJson=request.get_json()
 	dbId=requestJson.dbId
-	with open('indexDb.json' as index):
+	with open('indexDb.json') as index:
 		dbPath=index[dbId]
     nucleotides=requestJson.nucleotidesRetrieve
     plantFilter=requestJson.plantFilter
