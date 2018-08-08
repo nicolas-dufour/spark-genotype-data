@@ -1,5 +1,5 @@
 from flask import Flask,jsonify,request
-import json, CherryPy
+import json, cherrypy
 from SQLQueries.queryNucleotides import dbQuery
 
 app = Flask(__name__)
