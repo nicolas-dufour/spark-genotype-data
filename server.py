@@ -1,6 +1,7 @@
 from flask import Flask,request,jsonify
 import json, cherrypy
-from SQLQueries.queryNucleotides import dbQuery
+from SQLQueries.queryNucleotides import dbQuery as queryMarker
+from SQLQueries.queryPlants import dbQuery as querySample
 from paste.translogger import TransLogger
 
 app = Flask(__name__)
@@ -10,6 +11,7 @@ def main():
 @app.route('/v1/brapi/allelematrices-search',methods=['POST'])
 def retrieveNucleotideQuery():
 	requestJson=request.get_json()
+	queryType=requestJson['queryType']
 	dbId=requestJson['dbId']
 	with open('./indexDb.json') as f:
 		index=json.load(f)
@@ -17,9 +19,15 @@ def retrieveNucleotideQuery():
 	nucleotides=requestJson['nucleotidesRetrieve']
 	plantFilter=requestJson['plantFilter']
 	nucleotideCondition=requestJson['nucleotideCondition']
-	data=map(lambda x:json.loads(x),dbQuery(dbPath,nucleotides,plantFilter,nucleotideCondition))
-	returnjson={"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Nucleotide Data","data":data,"DbId":dbId}}
+	if(queryType=='M'):
+		data=map(lambda x:json.loads(x),queryMarker(dbPath,nucleotides,plantFilter,nucleotideCondition))
+		returnjson={"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Marker Data","data":data,"DbId":dbId}}
+
+	elif(queryType=='S'):
+		data=map(lambda x:json.loads(x),querySample(dbPath,plantFilter,nucleotides,nucleotideCondition))
+		returnjson={"metadata":{"datafiles":[],"pagination":{"currentPage":0,"pageSize":1,"totalCount":2,"totalPages":1},"status":[]},"result":{"dataType":"Sample Data","data":data,"DbId":dbId}}
 	return (jsonify(returnjson))
+
 
 def run_server(app):
 

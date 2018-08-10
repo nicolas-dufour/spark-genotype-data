@@ -29,9 +29,10 @@ This script is used to determine the frequencies of a given marker. Arguments: d
 ## server.py
 
 Launch the server with spark
+To query markers or samples URI /v1/brapi/allelematrices-search
 RequestObject:
 {
-	"QueryType":"M"//M for markers
+	"queryType":"M"//M for markers S for samples
 	"dbId":"10",
 	"nucleotidesRetrieve":["nucleotideA","nucleotideB"], //["ALL"] fo all
 	"plantFilter":["plantA","plantB"], //["ALL"] fo all
@@ -50,6 +51,7 @@ Response 200
 		"status":[]
 	},
 	"result":{
+    "dataType": "Type of the data"
 		"data":[
 			{
 				"nucleotide":"nucleotideX",
