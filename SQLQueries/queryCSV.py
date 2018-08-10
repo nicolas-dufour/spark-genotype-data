@@ -11,12 +11,14 @@ spark = SparkSession.builder.getOrCreate()
 
 ### Don't forget to escape the characters when entering them \( for ( for exemple
 
-def listEntries(nucleotide,plant,condition):
+def listEntries(nucleotide,plant,condition): #This function transform the file, the array (for the api) or the single string into a standard array
 	if('.txt' in nucleotide):
 		with open(nucleotide, 'rb') as f:
 		    reader = csv.reader(f)
 		    nucleotides = list(reader)
 		    nucleotides=[y for x in nucleotides for y in x]
+	elif(isinstance(nucleotide,list)):
+		nucleotides=nucleotide
 	else:
 		nucleotides=[nucleotide]
 	if('.txt' in plant):
@@ -24,6 +26,8 @@ def listEntries(nucleotide,plant,condition):
 		    reader = csv.reader(f)
 		    plants = list(reader)
 		    plants=[y for x in plants for y in x]
+	elif(isinstance(plant,list)):
+		plants=plant
 	else:
 		plants=[plant]
 	if('.txt' in condition):
@@ -31,6 +35,8 @@ def listEntries(nucleotide,plant,condition):
 		    reader = csv.reader(f)
 		    conditions = list(reader)
 		    conditions=[y for x in conditions for y in x]
+	elif(isinstance(condition,list)):
+		conditions=condition
 	else:
 		conditions=[condition]
 	return(nucleotides,plants,conditions)
@@ -62,13 +68,13 @@ def prepareQuery(nucleotides,plants,conditions): # SELECT nucleotides FROM file 
 
 def dbQuery(dbPath,nucleotide,plant,condition):
 	df=sqlContext.read.format('csv').options(header='true', inferSchema='true').load(dbPath)
-	df.createTempView('db')
+	df.createOrReplaceTempView('db')
 	nucleotides,plants,conditions=listEntries(nucleotide,plant,condition)
 	query=prepareQuery(nucleotides,plants,conditions)
 	print("Query: "+query)
-	spark.sql(query).show()
+	return spark.sql(query).toJSON().collect()
 
 if __name__ == '__main__':
 	start=time.time()
-	dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
+	print(dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]))
 	print("The programm took "+str(time.time()-start)+" secondes to run")

@@ -9,14 +9,16 @@ sc=SparkContext()
 sqlContext=SQLContext(sc);
 spark = SparkSession.builder.getOrCreate()
 
-### Don't forget to escape the characters when entering them
+### Don't forget to escape the characters when entering them \( for ( for exemple
 
-def listEntries(plant,nucleotide,condition):
+def listEntries(nucleotide,plant,condition): #This function transform the file, the array (for the api) or the single string into a standard array
 	if('.txt' in nucleotide):
 		with open(nucleotide, 'rb') as f:
 		    reader = csv.reader(f)
 		    nucleotides = list(reader)
 		    nucleotides=[y for x in nucleotides for y in x]
+	elif(isinstance(nucleotide,list)):
+		nucleotides=nucleotide
 	else:
 		nucleotides=[nucleotide]
 	if('.txt' in plant):
@@ -24,6 +26,8 @@ def listEntries(plant,nucleotide,condition):
 		    reader = csv.reader(f)
 		    plants = list(reader)
 		    plants=[y for x in plants for y in x]
+	elif(isinstance(plant,list)):
+		plants=plant
 	else:
 		plants=[plant]
 	if('.txt' in condition):
@@ -31,9 +35,11 @@ def listEntries(plant,nucleotide,condition):
 		    reader = csv.reader(f)
 		    conditions = list(reader)
 		    conditions=[y for x in conditions for y in x]
+	elif(isinstance(condition,list)):
+		conditions=condition
 	else:
 		conditions=[condition]
-	return(plants,nucleotides,conditions)
+	return(plants,nucleotides,condition)
 def prepareQuery(plants,nucleotides,conditions): # SELECT nucleotides FROM file WHERE plant=plant1 OR plant=plant2 etc... AND condition1 AND condition2
 	if(plants!=['ALL']):
 		selectstring="pos"
@@ -60,15 +66,15 @@ def prepareQuery(plants,nucleotides,conditions): # SELECT nucleotides FROM file 
 		else:
 			return("SELECT "+selectstring+" FROM db")
 
-def dbQuery(dbPath,plant,nucleotide,condition):
+def dbQuery(dbPath,nucleotide,plant,condition):#This function is the one to use to query on our Parquet file
 	df=sqlContext.read.parquet(dbPath)
-	df.createTempView('db')
+	df.createOrReplaceTempView('db')
 	plants,nucleotides,conditions=listEntries(plant,nucleotide,condition)
 	query=prepareQuery(plants,nucleotides,conditions)
 	print("Query: "+query)
-	spark.sql(query).collect()
+	return spark.sql(query).toJSON().collect()
 
 if __name__ == '__main__':
 	start=time.time()
-	dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
+	print(dbQuery(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]))
 	print("The programm took "+str(time.time()-start)+" secondes to run")

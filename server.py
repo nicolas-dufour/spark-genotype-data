@@ -6,15 +6,13 @@ from paste.translogger import TransLogger
 app = Flask(__name__)
 @app.route('/')
 def main():
-	return('Hello World')
-@app.route('/v1/brapi/nucleotidedataquery',methods=['POST'])
+	return('This is the page for the API to query the parquet files')
+@app.route('/v1/brapi/allelematrices-search',methods=['POST'])
 def retrieveNucleotideQuery():
 	requestJson=request.get_json()
 	dbId=requestJson['dbId']
-	print(dbId)
 	with open('./indexDb.json') as f:
 		index=json.load(f)
-		print(index)
 		dbPath=index[dbId]
 	nucleotides=requestJson['nucleotidesRetrieve']
 	plantFilter=requestJson['plantFilter']

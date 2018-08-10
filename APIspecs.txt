@@ -5,7 +5,7 @@ RequestObject:
 {
 	"QueryType":"plants"
 	"dbId":"10",
-	"samplsRetrieve":["plantA","plantB"], //["ALL"] fo all
+	"samplesRetrieve":["plantA","plantB"], //["ALL"] fo all
 	"nucleotideFiltering":["nuclA","nuclB"], //["ALL"] fo all
 	"plantCondition":["PlantC='A'"] //["NONE"] for no conditioning (Maybe useless to conditioning by plants??)
 }
@@ -46,7 +46,7 @@ Response 200
 POST api.url/brapi/v1/nucleotideDataQuery
 RequestObject:
 {
-	"QueryType":"nucleotides"
+	"QueryType":"M"//M for markers
 	"dbId":"10",
 	"nucleotidesRetrieve":["nucleotideA","nucleotideB"], //["ALL"] fo all
 	"plantFilter":["plantA","plantB"], //["ALL"] fo all
@@ -58,14 +58,13 @@ Response 200
 		"datafiles":[],
 		"pagination":{
 			"currentPage":0,
-			"pageSize":x,
+			"pageSize":1,
 			"totalCount":2,
 			"totalPages":1
 		},
 		"status":[]
 	},
 	"result":{
-		"dataType":"Nucleotide Data",
 		"data":[
 			{
 				"nucleotide":"nucleotideX",
@@ -82,63 +81,6 @@ Response 200
 		],
 		"plantDbId":123,
 	}
-}
-
-
-### Add db: API to add db to our spark server.
-POST api.url/brapi/v1/addplantdb
-Request Object
-{
-	"dataType":"Plant Genome",
-	"index":["plant","nucleotideA","nucleotideB","nucleotideC"]
-	"data":[
-		{
-			"plant":"plantX",
-			"nucleotideA":"A",
-			"nucleotideB":"B",
-			"nucleotideC":"C"
-		},
-		{
-			"plant":"plantY",
-			"nucleotideA":"A",
-			"nucleotideB":"B",
-			"nucleotideC":"C"
-		}
-	],
-	"uniqueDisplayName":"Chromosome 11 Soleneacae",
-	"description": "This db is there to do that",
-}
-Response 200:
-{
-	"success":true,
-	"message":"db Successfully Added"
-}
-
-POST api.url//brapi/v1/addnucleotidedb
-	{
-	"dataType":"Nucleotide data",
-	"index":["nucleotide","plantA","plantB","plantC"]
-	"data":[
-				{
-					"nucleotide":"nucleotideX",
-					"plantA":"A",
-					"plantB":"B",
-					"plantC":"C"
-				},
-				{
-					"nucleotide":"nucleotideY",
-					"plantA":"A",
-					"plantB":"B",
-					"plantC":"C"
-				}
-			],
-	"uniqueDisplayName":"Chromosome 11 Soleneacae",
-	"description": "This db is there to do that",
-}
-Response 200:
-{
-	"success":true,
-	"message":"db Successfully Added"
 }
 
 ## Statistics on nucleotides:
