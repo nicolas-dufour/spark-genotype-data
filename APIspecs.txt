@@ -1,47 +1,4 @@
 
-### Retrieve Plant genom
-POST api.url/brapi/v1/plantgenomequery
-RequestObject:
-{
-	"QueryType":"plants"
-	"dbId":"10",
-	"samplesRetrieve":["plantA","plantB"], //["ALL"] fo all
-	"nucleotideFiltering":["nuclA","nuclB"], //["ALL"] fo all
-	"plantCondition":["PlantC='A'"] //["NONE"] for no conditioning (Maybe useless to conditioning by plants??)
-}
-Response 200
-{
-	"metadata":{
-		"datafiles":[],
-		"pagination":{
-			"currentPage":0,
-			"pageSize":1,
-			"totalCount":1,
-			"totalPages":1
-		},
-		"status":[]
-	},
-	"result":{
-		"dataType":"Plant Genome",
-		"data":[
-			{
-				"plant":"plantX",
-				"nucleotideA":"A",
-				"nucleotideB":"B",
-				"nucleotideC":"C"
-			},
-			{
-				"plant":"plantY",
-				"nucleotideA":"A",
-				"nucleotideB":"B",
-				"nucleotideC":"C"
-			}
-		],
-		"plantDbId":123,
-		"uniqueDisplayName":"Chromosome 11 Soleneacae"
-	}
-}
-
 ### Retrieve nucleotide
 POST api.url/brapi/v1/nucleotideDataQuery
 RequestObject:
